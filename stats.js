@@ -4,7 +4,7 @@ const PlayerStats = require('./models/player');
 const Match = require('./models/match');
 
 // Set up MongoDB connection
-mongoose.connect('mongodb+srv://tejasvinu:HRvEphb6CKgeWBYf@aperta.u4lsf.mongodb.net/', {
+mongoose.connect('', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
