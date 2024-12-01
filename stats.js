@@ -1,4 +1,4 @@
-const faker = require('faker');
+const { faker } = require('@faker-js/faker');
 const mongoose = require('mongoose');
 const PlayerStats = require('./models/player');
 const Match = require('./models/match');
@@ -25,7 +25,7 @@ const generatePlayerStatsData = async () => {
       if (!playerStatsData.some((player) => player.name === player1)) {
         playerStatsData.push({
           name: player1,
-          elo: faker.random.number(2000), // Assign a random ELO score using Faker
+          elo: faker.number.int(2000), // Assign a random ELO score using Faker
         });
       }
 
@@ -33,7 +33,7 @@ const generatePlayerStatsData = async () => {
       if (!playerStatsData.some((player) => player.name === player2)) {
         playerStatsData.push({
           name: player2,
-          elo: faker.random.number(2000), // Assign a random ELO score using Faker
+          elo: faker.number.int(2000), // Assign a random ELO score using Faker
         });
       }
 

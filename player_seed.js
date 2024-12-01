@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const faker = require('faker');
+const { faker } = require('@faker-js/faker');
 require('dotenv').config();
 
 const Player = require('./models/player');
@@ -19,15 +19,14 @@ db.once('open', async () => {
     await Player.deleteMany({});
 
     // Generate fake players and save them to the database
-    const players = [];
-    for (let i = 0; i < 10; i++) {
-      const player = new Player({
-        name: faker.name.findName(),
-        winLossRatio: faker.random.number({ min: 0, max: 1, precision: 0.01 }),
-        elo: faker.random.number({ min: 1000, max: 3000 }),
-      });
-      players.push(player);
-    }
+    const players = faker.helpers.multiple(
+      () => new Player({
+          name: faker.person.findName(),
+          winLossRatio: faker.number.float({ min: 0, max: 1, fractionDigits: 2 }),
+          elo: faker.number.int({ min: 1000, max: 3000 }),
+      }),
+      { count: 10 }
+    );
 
     await Player.insertMany(players);
     console.log('Database seeded successfully');

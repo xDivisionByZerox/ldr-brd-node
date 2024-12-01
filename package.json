@@ -17,6 +17,6 @@
     "mongoose": "^7.1.1"
   },
   "devDependencies": {
-    "faker": "^5.5.3"
+    "@faker-js/faker": "^9.2.0"
   }
 }

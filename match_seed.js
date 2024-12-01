@@ -1,12 +1,13 @@
 // seed.js
 
 require('dotenv').config();
-const faker = require('faker');
+const { faker } = require('@faker-js/faker');
 const mongoose = require('mongoose');
 const Match = require('./models/match');
 
 // Connect to your MongoDB database
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
     seedData();
@@ -18,19 +19,17 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 // Seed match data
 const seedData = async () => {
   try {
-    // Create an array to hold the generated matches
-    const matches = [];
-
     // Generate sample matches
-    for (let i = 0; i < 10; i++) {
-      const match = {
+    const matches = faker.helpers.multiple(
+      () => ({
         date: faker.date.past(),
-        player1: faker.name.firstName(),
-        player2: faker.name.firstName(),
-        winner: faker.random.arrayElement(['Player 1', 'Player 2']),
-      };
-      matches.push(match);
-    }
+        player1: faker.person.firstName(),
+        player2: faker.person.firstName(),
+        winner: faker.helpers.arrayElement(['Player 1', 'Player 2']),
+      }),
+      { count: 10 }
+    );
+
 
     // Insert matches into the database
     await Match.insertMany(matches);
